@@ -197,6 +197,13 @@ by passing messages.
 - Verified: LLM-resolved issue (flag_for_human → RESOLVED); approved write-back (loans.term_months 0→12) executed, issue RESOLVED, re-run shows the rule PASS.
 - Consequences: + satisfies "no change to source data without explicit human approval" structurally; + closed loop (fix → re-check); − demo mutates the seeded DB, so the demo flow reseeds first (PHASES.txt).
 
+### ADR-18 — MCP (Model Context Protocol) considered and deliberately not used
+- Status: decided
+- Context: the brief allows any agent framework/tooling; MCP is the common way to expose tools (SQL, files, external services) to LLM clients via tool servers.
+- Decision: not used. Our agents call six small Python functions directly from our own loop (`tools.py`), because (a) the tools are trivial (SQLite, files, `input()`), (b) the guardrails must live in code regardless of protocol — read-only source connection, contract-only notification recipients, HITL — so an MCP layer would add processes and indirection without adding safety, (c) it keeps the demo offline/reproducible except for the Mistral API call, and light on low/medium hardware.
+- When MCP would be the right choice: running the agents inside an MCP-capable host instead of our own loop, sharing tool servers across multiple clients, or integrating external systems (GitHub/Slack/Postgres) without writing clients. E.g. a read-only "sqlite" MCP server would replace `run_sql_readonly`.
+- Consequences: + minimal moving parts, guardrails grep-able in one file; − we don't get MCP's ecosystem of prebuilt servers (acceptable for this scope).
+
 ## 5. Prioritised backlog
 
 1. [implemented] Dataset + seed script + defect manifest (ADR-01/02/03)
