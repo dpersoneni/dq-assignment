@@ -1,0 +1,132 @@
+version: "1.0.0"
+apiVersion: v3.0.0
+kind: DataContract
+id: urn:datacontract:dq-bank:customers:1.0.0
+name: customers
+status: production
+domain: banking
+description:
+  purpose: >-
+    One row per banking customer. This contract is the single source of truth for
+    what "good data" means for this table; the DQ monitor derives every check from
+    these rules and never hard-codes rules outside this file.
+  usage: data quality monitoring, marketplace trust score, owner/steward notification
+  limitations: fictitious demo dataset
+tags:
+  - customers
+  - pii
+servers:
+  - server: sqlite:///data/banking.db
+    type: custom
+    description: Local SQLite source; the monitor connects read-only.
+team:
+  - username: data.owner@dq-bank.example
+    role: owner
+  - username: data.steward@dq-bank.example
+    role: data steward
+support:
+  - channel: email
+    url: mailto:data.steward@dq-bank.example
+    description: Steward contact for quality issues on this data product
+slaProperties:
+  - property: freshness
+    value: 60
+    unit: minute
+  - property: availability
+    value: 99.9
+    unit: percent
+customProperties:
+  - property: dqScheduleMin
+    value: 60
+  - property: dqAsOf
+    value: "2025-06-30"
+contractCreatedTs: "2026-11-14T00:00:00Z"
+schema:
+  - name: customers
+    physicalName: customers
+    dataGranularityDescription: one row per customer
+    properties:
+      - name: customer_id
+        logicalType: integer
+        physicalType: INTEGER
+        primaryKey: true
+        required: true
+      - name: full_name
+        logicalType: string
+        physicalType: TEXT
+        required: true
+      - name: email
+        logicalType: string
+        physicalType: TEXT
+        required: true
+        unique: true
+        quality:
+          - name: email_not_null
+            type: library
+            rule: nullCount
+            mustBe: 0
+            unit: rows
+            dimension: completeness
+            severity: HIGH
+            description: email must never be NULL
+          - name: email_unique
+            type: library
+            rule: duplicateCount
+            mustBe: 0
+            unit: rows
+            dimension: uniqueness
+            severity: HIGH
+            description: no two customers may share an email address
+          - name: email_format
+            type: sql
+            query: SELECT customer_id FROM ${table} WHERE email IS NOT NULL AND email NOT LIKE '%_@_%._%'
+            unit: rows
+            dimension: conformity
+            severity: MEDIUM
+            description: email must match a basic email pattern
+      - name: phone
+        logicalType: string
+        physicalType: TEXT
+        quality:
+          - name: phone_not_null
+            type: library
+            rule: nullCount
+            mustBe: 0
+            unit: rows
+            dimension: completeness
+            severity: LOW
+            description: phone should be present for contactability
+      - name: date_of_birth
+        logicalType: date
+        physicalType: TEXT
+        required: true
+        quality:
+          - name: dob_not_future
+            type: sql
+            query: SELECT customer_id FROM ${table} WHERE date_of_birth > '${asOf}'
+            unit: rows
+            dimension: timeliness
+            severity: HIGH
+            description: date_of_birth must not be in the future
+          - name: dob_min_age_18
+            type: sql
+            query: SELECT customer_id FROM ${table} WHERE date_of_birth <= '${asOf}' AND (julianday('${asOf}') - julianday(date_of_birth)) / 365.25 < 18
+            unit: rows
+            dimension: accuracy
+            severity: HIGH
+            description: customers must be at least 18 years old
+      - name: country
+        logicalType: string
+        physicalType: TEXT
+      - name: kyc_status
+        logicalType: string
+        physicalType: TEXT
+        required: true
+        quality:
+          - name: kyc_status_enum
+            type: sql
+            query: SELECT customer_id FROM ${table} WHERE kyc_status NOT IN ('PENDING','VERIFIED','REJECTED')
+            unit: rows
+            dimension: conformity
+            severity: HIGH
+            description: kyc_status must be one of PENDING, VERIFIED, REJECTED

@@ -1,0 +1,83 @@
+# Phase tracker — contract-driven data quality monitor
+# Short log of what each phase does and why. Full rationale: DESIGN_DECISIONS.md (ADRs).
+# Status: DONE / NEXT / TODO
+
+## DONE
+- Phase 0 — dataset: data/seed_dataset.py -> data/banking.db (5 related tables) +
+  data/defect_manifest.csv (28 seeded defects / 36 defective rows, counts measured by SQL,
+  not asserted). Why: the brief provides no data; a reproducible seed keeps the demo and
+  the detection report stable. Time-based checks use a fixed as-of date 2025-06-30 (ADR-03).
+- Phase 1 — scaffold: run.py CLI, src/dq/{config,db,schema.sql,mistral,orchestrator}.py,
+  src/dq/agents/. Two DBs: source data opened READ-ONLY (mode=ro) vs state dq.db
+  (blackboard). Why: "agents never write to source" is enforced by the connection, not
+  by prompts (verified: DELETE on source fails). mistral.py is the only LLM/HTTP module.
+- Phase 2 — contracts: contracts/*.yaml x5, valid against the official ODCS v3.0.0 JSON
+  schema (vendored, jsonschema) + semantic checks vs source tables. 28 rules = 28 manifest
+  defects. `run.py sync` registers them as drafts; editing an approved contract flips it
+  back to draft (re-approval).
+- Phase 3 — Agent A1 + HITL gate: agents/base.py (bounded tool-calling loop, ephemeral
+  agent objects), tools.py (guardrailed executors: read-only SQL, ask_human),
+  a1_contract.py (LLM drafts contract; odcs.normalize_contract repairs list-vs-dict slips;
+  schema validation is the hard gate). `draft` -> draft, `approve` -> active (HITL).
+  Live-tested against the Mistral API with the .env key; LLM draft kept at
+  out/demo/draft_customers_llm.yaml. Measured cost so far: ~$0.02 (llm_calls table).
+- Phase 4 — rule-to-SQL compiler: src/dq/rules.py, `run.py compile` self-test. All 28
+  contract rules compiled to read-only SQL and executed: per-table defective-row totals
+  match the manifest exactly (36 vs 36, all OK). Unknown rule types fail loudly.
+
+## DONE (cont.)
+- Phase 5 — Agent A2 Quality Executor (capability B): src/dq/agents/a2_executor.py.
+  Loads only ACTIVE contracts, compiles rules via rules.py, executes them on the
+  READ-ONLY source connection, writes runs/check_results/issues, dedups open issues
+  (fingerprint per contract+rule, occurrences++ on repeat), advances next_run_due.
+  Verified: 5 manual runs COMPLETED, 28/28 rules FAIL (= all 28 seeded defects found),
+  28 OPEN issues; 2nd run dedups (occurrences=2, still 28 issues); draft contract
+  skipped with reason; `tick` ran a due contract with triggered_by='schedule'.
+  Bug fixed along the way: placeholder miscount in the issues INSERT.
+
+## DONE (cont.)
+- Phase 6 — orchestrator pipeline: `tick` runs A2→A3→A4 for all due contracts (deterministic,
+  steps logged); `demo` = sync + auto-approve drafts + pipeline all active; `dashboard`/`notify`
+  as standalone commands. Verified: tick ran 5 contracts, wrote dashboard + marketplace.
+- Phase 7 — Agent A3 dashboard (capability C): src/dq/agents/a3_metrics.py, deterministic SQL
+  over the blackboard → static out/dashboard.html: per-contract summary (last run, failing rules,
+  open issues by severity, score, status) + trend of issues-found over last 10 runs + open-issue
+  detail table. Score = 100 − Σ severity weights of failing rules in latest run (HIGH 20/MED 10/LOW 5).
+- Phase 8 — Agent A4 notify+marketplace (capability D): src/dq/agents/a4_notify.py. Recipients
+  read ONLY from the contract team section (no misrouting); simulated channel = one JSON per issue
+  in out/notifications/ + `notifications` row, deduped (notify once per issue); out/marketplace.json
+  with per-product score/status + `marketplace_entries`. Verified: 28 notifications with correct
+  owner/steward/subject/sample; 2nd tick sent 0 new ones.
+
+## DONE (cont.)
+- Phase 9 — detection report (Task 1): src/dq/compare_to_manifest.py + `run.py report`.
+  Maps each manifest defect to its contract rule (RULE_TO_DEFECT, 1:1) and checks the rule
+  FAILED in the contract's latest completed run. Result: 28/28 found, 0 missed, 0 false
+  positives, 100% detection rate; detected row counts equal manifest counts on every defect.
+  Outputs: out/detection_report.csv (Excel-tab columns: defect, rule, detected Y/N, severity,
+  rows) + out/detection_report_summary.txt. One fix: check_results needs a JOIN to runs for
+  contract_id.
+
+## DONE (cont.)
+- Phase 10 — Agent A5 Issue Resolver (capability E): src/dq/agents/a5_resolver.py +
+  `run.py resolve --issue N`. LLM explores via READ-ONLY tools (query_state,
+  run_sql_readonly) and returns structured JSON {root_cause, suggested_fix, confidence,
+  proposed_action, proposed_sql}; deterministic template fallback if the LLM is down.
+  HITL gate decides accept/reject/close (recorded in issue_decisions). ONLY an accepted
+  propose_write_back is executed — by the orchestrator, single transaction, regex-gated
+  single UPDATE/DELETE/INSERT; then the contract re-runs to verify the fix.
+  Verified live: issue #1 resolved via LLM suggestion (flag_for_human); crafted
+  write-back on issue #24 executed after approval (loans.term_months 0→12), issue
+  RESOLVED, re-run shows rule PASS ("fix confirmed"). State then reset (reseed +
+  fresh dq.db) back to 28/28 = 100% detection.
+
+## DONE (cont.)
+- Phase 11 — Task 2 docs: README runbook (fresh-clone run instructions + disclosure);
+  DESIGN_DECISIONS.md §6 filled with MEASURED values (detection 100% 28/28, 0 FP; 5/5 active
+  contracts; pipeline 1.04s wall; A1 draft = 2 calls / 8,029 tokens ≈ $0.0016; steady-state
+  scheduled run = $0 LLM) + scale analysis for 500 contracts / 50 sources; new §8 answers the
+  brief's Task 2 questions (agent split vs one agent vs script, deterministic-vs-LLM,
+  KPIs, safeguards against invented rules / misrouting / data exposure, options, MVP line).
+
+## NEXT
+- Phase 12 — demo recording, git init, verify a fresh clone runs end-to-end from README.

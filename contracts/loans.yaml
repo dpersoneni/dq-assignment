@@ -1,0 +1,101 @@
+version: "1.0.0"
+apiVersion: v3.0.0
+kind: DataContract
+id: urn:datacontract:dq-bank:loans:1.0.0
+name: loans
+status: production
+domain: banking
+description:
+  purpose: One row per loan. Low refresh frequency; checks are derived from this contract only.
+  usage: data quality monitoring, marketplace trust score
+  limitations: fictitious demo dataset
+tags:
+  - loans
+servers:
+  - server: sqlite:///data/banking.db
+    type: custom
+    description: Local SQLite source; the monitor connects read-only.
+team:
+  - username: lending.owner@dq-bank.example
+    role: owner
+  - username: lending.steward@dq-bank.example
+    role: data steward
+support:
+  - channel: email
+    url: mailto:lending.steward@dq-bank.example
+slaProperties:
+  - property: freshness
+    value: 1440
+    unit: minute
+customProperties:
+  - property: dqScheduleMin
+    value: 1440
+  - property: dqAsOf
+    value: "2025-06-30"
+contractCreatedTs: "2026-11-14T00:00:00Z"
+schema:
+  - name: loans
+    physicalName: loans
+    dataGranularityDescription: one row per loan
+    properties:
+      - name: loan_id
+        logicalType: integer
+        physicalType: INTEGER
+        primaryKey: true
+        required: true
+      - name: customer_id
+        logicalType: integer
+        physicalType: INTEGER
+        required: true
+      - name: principal
+        logicalType: number
+        physicalType: REAL
+        required: true
+        quality:
+          - name: principal_positive
+            type: sql
+            query: SELECT loan_id FROM ${table} WHERE principal <= 0
+            unit: rows
+            dimension: conformity
+            severity: HIGH
+            description: principal must be a positive amount
+      - name: interest_rate
+        logicalType: number
+        physicalType: REAL
+        required: true
+        quality:
+          - name: interest_rate_range
+            type: sql
+            query: SELECT loan_id FROM ${table} WHERE interest_rate < 0 OR interest_rate > 100
+            unit: rows
+            dimension: conformity
+            severity: HIGH
+            description: annual interest rate must be within 0-100 percent
+      - name: start_date
+        logicalType: date
+        physicalType: TEXT
+        required: true
+      - name: term_months
+        logicalType: integer
+        physicalType: INTEGER
+        required: true
+        quality:
+          - name: term_months_positive
+            type: sql
+            query: SELECT loan_id FROM ${table} WHERE term_months <= 0
+            unit: rows
+            dimension: conformity
+            severity: MEDIUM
+            description: term_months must be a positive integer
+      - name: status
+        logicalType: string
+        physicalType: TEXT
+        required: true
+    quality:
+      - name: max_one_active_loan_per_customer
+        type: sql
+        query: SELECT l.loan_id FROM ${table} l WHERE l.status = 'ACTIVE' AND EXISTS (SELECT 1 FROM ${table} l2 WHERE l2.customer_id = l.customer_id AND l2.status = 'ACTIVE' AND l2.loan_id <> l.loan_id)
+        unit: rows
+        dimension: uniqueness
+        severity: MEDIUM
+        description: a customer may have at most one ACTIVE loan at a time

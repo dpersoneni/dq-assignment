@@ -1,0 +1,119 @@
+version: "1.0.0"
+apiVersion: v3.0.0
+kind: DataContract
+id: urn:datacontract:dq-bank:accounts:1.0.0
+name: accounts
+status: production
+domain: banking
+description:
+  purpose: One row per bank account. Checks are derived from this contract only.
+  usage: data quality monitoring, marketplace trust score
+  limitations: fictitious demo dataset
+tags:
+  - accounts
+servers:
+  - server: sqlite:///data/banking.db
+    type: custom
+    description: Local SQLite source; the monitor connects read-only.
+team:
+  - username: accounts.owner@dq-bank.example
+    role: owner
+  - username: accounts.steward@dq-bank.example
+    role: data steward
+support:
+  - channel: email
+    url: mailto:accounts.steward@dq-bank.example
+slaProperties:
+  - property: freshness
+    value: 15
+    unit: minute
+customProperties:
+  - property: dqScheduleMin
+    value: 15
+  - property: dqAsOf
+    value: "2025-06-30"
+contractCreatedTs: "2026-11-14T00:00:00Z"
+schema:
+  - name: accounts
+    physicalName: accounts
+    dataGranularityDescription: one row per account
+    properties:
+      - name: account_id
+        logicalType: integer
+        physicalType: INTEGER
+        primaryKey: true
+        required: true
+      - name: iban
+        logicalType: string
+        physicalType: TEXT
+        required: true
+        unique: true
+        quality:
+          - name: iban_unique
+            type: library
+            rule: duplicateCount
+            mustBe: 0
+            unit: rows
+            dimension: uniqueness
+            severity: HIGH
+            description: IBAN must be unique across accounts
+      - name: customer_id
+        logicalType: integer
+        physicalType: INTEGER
+        required: true
+      - name: account_type
+        logicalType: string
+        physicalType: TEXT
+        required: true
+      - name: currency
+        logicalType: string
+        physicalType: TEXT
+        quality:
+          - name: currency_not_null
+            type: library
+            rule: nullCount
+            mustBe: 0
+            unit: rows
+            dimension: completeness
+            severity: MEDIUM
+          - name: currency_iso4217
+            type: sql
+            query: SELECT account_id FROM ${table} WHERE currency IS NOT NULL AND currency NOT IN ('USD','EUR','GBP','CAD','AUD','CHF','JPY')
+            unit: rows
+            dimension: conformity
+            severity: HIGH
+            description: currency must be a known ISO 4217 code
+      - name: balance
+        logicalType: number
+        physicalType: REAL
+        required: true
+      - name: opened_date
+        logicalType: date
+        physicalType: TEXT
+        required: true
+      - name: status
+        logicalType: string
+        physicalType: TEXT
+        required: true
+    quality:
+      - name: account_customer_fk
+        type: sql
+        query: SELECT a.account_id FROM ${table} a LEFT JOIN customers c ON a.customer_id = c.customer_id WHERE c.customer_id IS NULL
+        unit: rows
+        dimension: consistency
+        severity: HIGH
+        description: every account must reference an existing customer
+      - name: balance_checking_non_negative
+        type: sql
+        query: SELECT account_id FROM ${table} WHERE account_type = 'CHECKING' AND balance < 0
+        unit: rows
+        dimension: consistency
+        severity: MEDIUM
+        description: CHECKING accounts do not allow overdrafts, balance must be >= 0
+      - name: opened_not_future
+        type: sql
+        query: SELECT account_id FROM ${table} WHERE opened_date > '${asOf}'
+        unit: rows
+        dimension: timeliness
+        severity: MEDIUM
+        description: opened_date must not be in the future

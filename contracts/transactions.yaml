@@ -1,0 +1,126 @@
+version: "1.0.0"
+apiVersion: v3.0.0
+kind: DataContract
+id: urn:datacontract:dq-bank:transactions:1.0.0
+name: transactions
+status: production
+domain: banking
+description:
+  purpose: >-
+    One row per account transaction. Most frequently refreshed source, hence the
+    shortest schedule. Checks are derived from this contract only.
+  usage: data quality monitoring, marketplace trust score
+  limitations: fictitious demo dataset
+tags:
+  - transactions
+servers:
+  - server: sqlite:///data/banking.db
+    type: custom
+    description: Local SQLite source; the monitor connects read-only.
+team:
+  - username: payments.owner@dq-bank.example
+    role: owner
+  - username: payments.steward@dq-bank.example
+    role: data steward
+support:
+  - channel: email
+    url: mailto:payments.steward@dq-bank.example
+slaProperties:
+  - property: freshness
+    value: 5
+    unit: minute
+customProperties:
+  - property: dqScheduleMin
+    value: 5
+  - property: dqAsOf
+    value: "2025-06-30"
+contractCreatedTs: "2026-11-14T00:00:00Z"
+schema:
+  - name: transactions
+    physicalName: transactions
+    dataGranularityDescription: one row per transaction
+    properties:
+      - name: transaction_id
+        logicalType: integer
+        physicalType: INTEGER
+        primaryKey: true
+        required: true
+      - name: account_id
+        logicalType: integer
+        physicalType: INTEGER
+        required: true
+      - name: amount
+        logicalType: number
+        physicalType: REAL
+        required: true
+        quality:
+          - name: amount_not_null
+            type: library
+            rule: nullCount
+            mustBe: 0
+            unit: rows
+            dimension: completeness
+            severity: HIGH
+          - name: amount_nonzero
+            type: sql
+            query: SELECT transaction_id FROM ${table} WHERE amount = 0
+            unit: rows
+            dimension: conformity
+            severity: LOW
+            description: a transaction amount of exactly 0 is not meaningful
+          - name: amount_sign_matches_type
+            type: sql
+            query: SELECT transaction_id FROM ${table} WHERE (transaction_type = 'DEBIT' AND amount > 0) OR (transaction_type = 'CREDIT' AND amount < 0)
+            unit: rows
+            dimension: conformity
+            severity: MEDIUM
+            description: DEBIT amounts must be negative, CREDIT amounts positive
+      - name: currency
+        logicalType: string
+        physicalType: TEXT
+        required: true
+      - name: transaction_type
+        logicalType: string
+        physicalType: TEXT
+        required: true
+      - name: occurred_at
+        logicalType: string
+        physicalType: TEXT
+        required: true
+      - name: merchant
+        logicalType: string
+        physicalType: TEXT
+      - name: status
+        logicalType: string
+        physicalType: TEXT
+        required: true
+        quality:
+          - name: status_enum
+            type: sql
+            query: SELECT transaction_id FROM ${table} WHERE status NOT IN ('COMPLETED','PENDING','FAILED')
+            unit: rows
+            dimension: conformity
+            severity: MEDIUM
+            description: status must be one of COMPLETED, PENDING, FAILED
+    quality:
+      - name: tx_account_fk
+        type: sql
+        query: SELECT t.transaction_id FROM ${table} t LEFT JOIN accounts a ON t.account_id = a.account_id WHERE a.account_id IS NULL
+        unit: rows
+        dimension: consistency
+        severity: HIGH
+        description: every transaction must reference an existing account
+      - name: occurred_not_future
+        type: sql
+        query: SELECT transaction_id FROM ${table} WHERE occurred_at > '${asOf} 00:00:00'
+        unit: rows
+        dimension: timeliness
+        severity: MEDIUM
+        description: occurred_at must not be in the future
+      - name: tx_currency_matches_account
+        type: sql
+        query: SELECT t.transaction_id FROM ${table} t JOIN accounts a ON t.account_id = a.account_id WHERE t.currency != a.currency
+        unit: rows
+        dimension: consistency
+        severity: HIGH
+        description: transaction currency must equal the currency of its account

@@ -1,0 +1,12 @@
+# secrets — never commit API keys
+.env
+*.key
+
+# generated artifacts
+out/
+data/banking.db
+dq.db
+
+# python
+__pycache__/
+*.pyc

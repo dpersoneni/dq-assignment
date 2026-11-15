@@ -1,0 +1,101 @@
+version: "1.0.0"
+apiVersion: v3.0.0
+kind: DataContract
+id: urn:datacontract:dq-bank:cards:1.0.0
+name: cards
+status: production
+domain: banking
+description:
+  purpose: One row per payment card. Checks are derived from this contract only.
+  usage: data quality monitoring, marketplace trust score
+  limitations: fictitious demo dataset
+tags:
+  - cards
+  - pan
+servers:
+  - server: sqlite:///data/banking.db
+    type: custom
+    description: Local SQLite source; the monitor connects read-only.
+team:
+  - username: cards.owner@dq-bank.example
+    role: owner
+  - username: cards.steward@dq-bank.example
+    role: data steward
+support:
+  - channel: email
+    url: mailto:cards.steward@dq-bank.example
+slaProperties:
+  - property: freshness
+    value: 30
+    unit: minute
+customProperties:
+  - property: dqScheduleMin
+    value: 30
+  - property: dqAsOf
+    value: "2025-06-30"
+contractCreatedTs: "2026-11-14T00:00:00Z"
+schema:
+  - name: cards
+    physicalName: cards
+    dataGranularityDescription: one row per payment card
+    properties:
+      - name: card_id
+        logicalType: integer
+        physicalType: INTEGER
+        primaryKey: true
+        required: true
+      - name: card_number
+        logicalType: string
+        physicalType: TEXT
+        required: true
+        unique: true
+        quality:
+          - name: card_number_format
+            type: sql
+            query: SELECT card_id FROM ${table} WHERE card_number NOT GLOB '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'
+            unit: rows
+            dimension: conformity
+            severity: HIGH
+            description: card_number (PAN) must be exactly 16 digits
+          - name: card_number_unique
+            type: library
+            rule: duplicateCount
+            mustBe: 0
+            unit: rows
+            dimension: uniqueness
+            severity: HIGH
+            description: a card number must not be issued twice
+      - name: account_id
+        logicalType: integer
+        physicalType: INTEGER
+        required: true
+      - name: customer_id
+        logicalType: integer
+        physicalType: INTEGER
+        required: true
+      - name: expiry_date
+        logicalType: string
+        physicalType: TEXT
+        required: true
+      - name: credit_limit
+        logicalType: number
+        physicalType: REAL
+      - name: status
+        logicalType: string
+        physicalType: TEXT
+        required: true
+    quality:
+      - name: card_account_fk
+        type: sql
+        query: SELECT c.card_id FROM ${table} c LEFT JOIN accounts a ON c.account_id = a.account_id WHERE a.account_id IS NULL
+        unit: rows
+        dimension: consistency
+        severity: HIGH
+        description: every card must reference an existing account
+      - name: card_not_expired_while_active
+        type: sql
+        query: SELECT card_id FROM ${table} WHERE status = 'ACTIVE' AND expiry_date < '${asOfMonth}'
+        unit: rows
+        dimension: consistency
+        severity: HIGH
+        description: a card past its expiry_date must not remain ACTIVE

@@ -1,0 +1,29 @@
+defect_id,table_name,column_name,defect_type,quality_dimension,severity,description,rows_affected
+D01,customers,email,null value,completeness,HIGH,email is NULL on rows where it is required,2
+D02,customers,email,duplicate value,uniqueness,HIGH,same email used by more than one customer,2
+D03,customers,email,invalid format,validity,MEDIUM,email does not match a basic email pattern,2
+D04,customers,date_of_birth,future date,timeliness,HIGH,date_of_birth is in the future,1
+D05,customers,date_of_birth,implausible value (under 18),accuracy,HIGH,customer is younger than 18 at the reference date,1
+D06,customers,kyc_status,value outside allowed set,validity,HIGH,kyc_status not in PENDING/VERIFIED/REJECTED,1
+D07,customers,phone,null value,completeness,LOW,phone is NULL,1
+D08,accounts,customer_id,orphan foreign key,integrity,HIGH,account references a customer_id that does not exist,1
+D09,accounts,currency,null value,completeness,MEDIUM,currency is NULL,1
+D10,accounts,currency,invalid ISO 4217 code,validity,HIGH,currency is not a known ISO 4217 code,1
+D11,accounts,balance,negative balance on non-overdraft account,consistency,MEDIUM,CHECKING account with negative balance (overdraft not allowed),1
+D12,accounts,opened_date,future date,timeliness,MEDIUM,opened_date is in the future,1
+D13,accounts,iban,duplicate value,uniqueness,HIGH,same IBAN used by more than one account,2
+D14,transactions,amount,null value,completeness,HIGH,amount is NULL,2
+D15,transactions,amount,zero amount,validity,LOW,amount equals 0,1
+D16,transactions,account_id,orphan foreign key,integrity,HIGH,transaction references an account_id that does not exist,1
+D17,transactions,occurred_at,future timestamp,timeliness,MEDIUM,occurred_at is in the future,1
+D18,transactions,status,value outside allowed set,validity,MEDIUM,status not in COMPLETED/PENDING/FAILED,1
+D19,transactions,currency,cross-table inconsistency,consistency,HIGH,transaction currency differs from its account's currency,2
+D20,transactions,amount,sign inconsistent with type,validity,MEDIUM,DEBIT with positive amount or CREDIT with negative amount,1
+D21,loans,interest_rate,out of range,validity,HIGH,interest_rate outside 0-100,1
+D22,loans,term_months,out of range,validity,MEDIUM,term_months must be a positive integer,1
+D23,loans,principal,out of range,validity,HIGH,principal must be positive,1
+D24,loans,customer_id,duplicate active loan per customer,uniqueness,MEDIUM,a customer has more than one ACTIVE loan,2
+D25,cards,expiry_date,expired but active,consistency,HIGH,status ACTIVE although expiry_date is in the past,1
+D26,cards,card_number,invalid format,validity,HIGH,card_number is not exactly 16 digits,1
+D27,cards,card_number,duplicate value,uniqueness,HIGH,same card_number issued more than once,2
+D28,cards,account_id,orphan foreign key,integrity,HIGH,card references an account_id that does not exist,1
