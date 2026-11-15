@@ -79,5 +79,15 @@
   brief's Task 2 questions (agent split vs one agent vs script, deterministic-vs-LLM,
   KPIs, safeguards against invented rules / misrouting / data exposure, options, MVP line).
 
+## STATE SAVED / RESUME
+- 2026-11-15: full project committed to git (commit 55f0dc9, 32 files, clean tree).
+  Generated artifacts (dq.db, data/banking.db, out/) are gitignored but present on disk;
+  .env with MISTRAL_API_KEY is on disk but gitignored — needed only for A1/A5 live calls.
+- To resume: open this folder, `git log --oneline` to see state, read this file + README.md.
+  Everything through Phase 11 is DONE and verified (see DONE sections above).
+- Remaining (Phase 12, optional): fresh-clone verification from README, demo recording/transcript.
+  Quick re-verify anytime: `python run.py compile` (expect 36 vs 36 OK) and
+  `python run.py report` (expect 100.0% 28/28, 0 missed, 0 false positives).
+
 ## NEXT
-- Phase 12 — demo recording, git init, verify a fresh clone runs end-to-end from README.
+- Phase 12 — demo recording, fresh-clone verification from README.
