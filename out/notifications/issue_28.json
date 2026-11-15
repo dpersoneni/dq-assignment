@@ -1,0 +1,26 @@
+{
+  "channel": "file (simulated email)",
+  "sent_at": "2026-11-15 11:50:39",
+  "to": {
+    "owner": "payments.owner@dq-bank.example",
+    "steward": "payments.steward@dq-bank.example"
+  },
+  "subject": "[DQ][MEDIUM] transactions: rule 'status_enum' failing (1 rows)",
+  "body": "Data contract 'transactions' (table transactions) rule 'status_enum' [conformity/MEDIUM] is failing: 1 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: status must be one of COMPLETED, PENDING, FAILED\nField: transactions.status\nSample offending keys: [[54]]\nExplore/fix interactively: python run.py resolve --issue 28",
+  "issue": {
+    "issue_id": 28,
+    "contract_id": "transactions",
+    "rule_id": "status_enum",
+    "dimension": "conformity",
+    "severity": "MEDIUM",
+    "table_name": "transactions",
+    "column_name": "status",
+    "rows_affected": 1,
+    "occurrences": 1
+  },
+  "sample_offending_keys": [
+    [
+      54
+    ]
+  ]
+}

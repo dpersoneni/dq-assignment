@@ -1,0 +1,29 @@
+{
+  "channel": "file (simulated email)",
+  "sent_at": "2026-11-15 11:50:39",
+  "to": {
+    "owner": "data.owner@dq-bank.example",
+    "steward": "data.steward@dq-bank.example"
+  },
+  "subject": "[DQ][HIGH] customers: rule 'email_not_null' failing (2 rows)",
+  "body": "Data contract 'customers' (table customers) rule 'email_not_null' [completeness/HIGH] is failing: 2 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: email must never be NULL\nField: customers.email\nSample offending keys: [[11], [12]]\nExplore/fix interactively: python run.py resolve --issue 11",
+  "issue": {
+    "issue_id": 11,
+    "contract_id": "customers",
+    "rule_id": "email_not_null",
+    "dimension": "completeness",
+    "severity": "HIGH",
+    "table_name": "customers",
+    "column_name": "email",
+    "rows_affected": 2,
+    "occurrences": 1
+  },
+  "sample_offending_keys": [
+    [
+      11
+    ],
+    [
+      12
+    ]
+  ]
+}

@@ -1,0 +1,42 @@
+# Demo transcript â€” fresh clone of the repo, run from README quickstart
+# date: 2026-11-15 16:16 UTC
+
+$ python run.py demo --auto-approve
+accounts: active
+cards: active
+customers: active
+loans: active
+transactions: active
+[demo] pipeline for contracts: ['accounts', 'cards', 'customers', 'loans', 'transactions']
+[A2] accounts: run #6 COMPLETED — 6 rules, 6 failing, 0 errors
+[A2] cards: run #7 COMPLETED — 4 rules, 4 failing, 0 errors
+[A2] customers: run #8 COMPLETED — 7 rules, 7 failing, 0 errors
+[A2] loans: run #9 COMPLETED — 4 rules, 4 failing, 0 errors
+[A2] transactions: run #10 COMPLETED — 7 rules, 7 failing, 0 errors
+[A3] dashboard written -> C:\Users\dani\AppData\Local\Temp\dq-clone-test\out\dashboard.html
+[A4] marketplace written -> C:\Users\dani\AppData\Local\Temp\dq-clone-test\out\marketplace.json (5 products, 0 new notifications)
+
+$ python run.py resolve --issue 1 --auto-approve   # capability E, live LLM
+[A5] exploring issue #1 (accounts.account_customer_fk) with LLM ...
+[A5] root_cause   : The offending account (account_id=16) references a non-existent customer_id (999) in the customers table. The customers table only contains customer_ids 1-12, so the foreign key constraint is violated.
+[A5] suggested_fix: Update the customer_id for account_id=16 to a valid customer_id (e.g., 1) or delete the account if it is no longer needed.
+[A5] confidence   : high  action: propose_write_back
+[A5] proposed_sql : UPDATE accounts SET customer_id = 1 WHERE account_id = 16;
+[HITL auto-approve] Issue #1 (accounts.account_customer_fk, HIGH): accept the suggestion (action=propose_write_back), reject it, or close the issue? -> accept
+[HITL] approved write-back executed in one transaction: UPDATE accounts SET customer_id = 1 WHERE account_id = 16;
+[A5] issue #1 -> RESOLVED (decision=accept, write_back=True)
+[A2] accounts: run #11 COMPLETED — 6 rules, 5 failing, 0 errors
+[verify] rule account_customer_fk still failing in latest run: NO — fix confirmed
+
+$ python run.py report
+Detection report — latest completed run per contract vs data/defect_manifest.csv
+seeded defects in manifest : 28
+found (detected = Y)       : 27
+missed (detected = N)      : 1: D08
+false positives            : 0
+detection rate             : 96.4% (27/28)
+
+Note: all checks are contract-driven (rules compiled from contracts/*.yaml, executed
+read-only). Time-based rules evaluated at the fixed as-of date 2025-06-30 (ADR-03).
+
+CSV written -> C:\Users\dani\AppData\Local\Temp\dq-clone-test\out\detection_report.csv

@@ -1,0 +1,26 @@
+{
+  "channel": "file (simulated email)",
+  "sent_at": "2026-11-15 11:50:39",
+  "to": {
+    "owner": "payments.owner@dq-bank.example",
+    "steward": "payments.steward@dq-bank.example"
+  },
+  "subject": "[DQ][LOW] transactions: rule 'amount_nonzero' failing (1 rows)",
+  "body": "Data contract 'transactions' (table transactions) rule 'amount_nonzero' [conformity/LOW] is failing: 1 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: a transaction amount of exactly 0 is not meaningful\nField: transactions.amount\nSample offending keys: [[51]]\nExplore/fix interactively: python run.py resolve --issue 26",
+  "issue": {
+    "issue_id": 26,
+    "contract_id": "transactions",
+    "rule_id": "amount_nonzero",
+    "dimension": "conformity",
+    "severity": "LOW",
+    "table_name": "transactions",
+    "column_name": "amount",
+    "rows_affected": 1,
+    "occurrences": 1
+  },
+  "sample_offending_keys": [
+    [
+      51
+    ]
+  ]
+}

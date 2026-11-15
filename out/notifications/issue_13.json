@@ -1,0 +1,29 @@
+{
+  "channel": "file (simulated email)",
+  "sent_at": "2026-11-15 11:50:39",
+  "to": {
+    "owner": "data.owner@dq-bank.example",
+    "steward": "data.steward@dq-bank.example"
+  },
+  "subject": "[DQ][MEDIUM] customers: rule 'email_format' failing (2 rows)",
+  "body": "Data contract 'customers' (table customers) rule 'email_format' [conformity/MEDIUM] is failing: 2 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: email must match a basic email pattern\nField: customers.email\nSample offending keys: [[8], [9]]\nExplore/fix interactively: python run.py resolve --issue 13",
+  "issue": {
+    "issue_id": 13,
+    "contract_id": "customers",
+    "rule_id": "email_format",
+    "dimension": "conformity",
+    "severity": "MEDIUM",
+    "table_name": "customers",
+    "column_name": "email",
+    "rows_affected": 2,
+    "occurrences": 1
+  },
+  "sample_offending_keys": [
+    [
+      8
+    ],
+    [
+      9
+    ]
+  ]
+}

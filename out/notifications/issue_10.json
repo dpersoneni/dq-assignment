@@ -1,0 +1,29 @@
+{
+  "channel": "file (simulated email)",
+  "sent_at": "2026-11-15 11:50:39",
+  "to": {
+    "owner": "cards.owner@dq-bank.example",
+    "steward": "cards.steward@dq-bank.example"
+  },
+  "subject": "[DQ][HIGH] cards: rule 'card_number_unique' failing (2 rows)",
+  "body": "Data contract 'cards' (table cards) rule 'card_number_unique' [uniqueness/HIGH] is failing: 2 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: a card number must not be issued twice\nField: cards.card_number\nSample offending keys: [[1], [9]]\nExplore/fix interactively: python run.py resolve --issue 10",
+  "issue": {
+    "issue_id": 10,
+    "contract_id": "cards",
+    "rule_id": "card_number_unique",
+    "dimension": "uniqueness",
+    "severity": "HIGH",
+    "table_name": "cards",
+    "column_name": "card_number",
+    "rows_affected": 2,
+    "occurrences": 1
+  },
+  "sample_offending_keys": [
+    [
+      1
+    ],
+    [
+      9
+    ]
+  ]
+}

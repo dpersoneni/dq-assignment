@@ -79,15 +79,25 @@
   brief's Task 2 questions (agent split vs one agent vs script, deterministic-vs-LLM,
   KPIs, safeguards against invented rules / misrouting / data exposure, options, MVP line).
 
-## STATE SAVED / RESUME
-- 2026-11-15: full project committed to git (commit 55f0dc9, 32 files, clean tree).
-  Generated artifacts (dq.db, data/banking.db, out/) are gitignored but present on disk;
-  .env with MISTRAL_API_KEY is on disk but gitignored — needed only for A1/A5 live calls.
-- To resume: open this folder, `git log --oneline` to see state, read this file + README.md.
-  Everything through Phase 11 is DONE and verified (see DONE sections above).
-- Remaining (Phase 12, optional): fresh-clone verification from README, demo recording/transcript.
-  Quick re-verify anytime: `python run.py compile` (expect 36 vs 36 OK) and
-  `python run.py report` (expect 100.0% 28/28, 0 missed, 0 false positives).
+## DONE (cont.)
+- Phase 12 — packaging & verification: fresh `git clone` to a temp dir ran the README
+  quickstart end-to-end with NO .env tracked (leak check: 0 .env files in git) —
+  seed/init/sync/approve x5/tick/compile/report all pass in the clone (36 vs 36 compile,
+  100% detection 28/28). Demo transcript (demo --auto-approve + live `resolve --issue 1`
+  where A5 proposed and the orchestrator executed `UPDATE accounts SET customer_id=1
+  WHERE account_id=16` after HITL accept; re-run confirmed the rule PASS; report then
+  honestly shows 27/28 because D08 was actually fixed) saved at out/demo/demo_transcript.txt.
+  The main repo's out/detection_report.* still show the pre-fix 100% (28/28) state.
+  .gitignore now keeps out/ COMMITTED (detection report + demo transcript are deliverables);
+  only dq.db / data/banking.db / .env remain ignored.
 
-## NEXT
-- Phase 12 — demo recording, fresh-clone verification from README.
+## STATE SAVED / RESUME
+- 2026-11-15: project committed to git (see `git log --oneline`; latest includes Phase 12).
+  dq.db, data/banking.db and .env (MISTRAL_API_KEY) are on disk but gitignored — .env is
+  needed only for live A1/A5 LLM calls.
+- To resume: open this folder, `git log --oneline`, read this file + README.md.
+  ALL phases 0-12 are DONE. Quick re-verify anytime: `python run.py compile` (expect 36 vs 36)
+  and `python run.py report` (expect 100.0% 28/28, 0 missed, 0 false positives).
+- Submission checklist: repo (git) = code+contracts+manifest+README+DDR; paste
+  out/detection_report.csv into an Excel tab; demo = out/demo/demo_transcript.txt or a
+  screen recording of `python run.py demo --auto-approve`.

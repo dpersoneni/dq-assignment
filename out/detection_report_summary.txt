@@ -1,0 +1,9 @@
+Detection report — latest completed run per contract vs data/defect_manifest.csv
+seeded defects in manifest : 28
+found (detected = Y)       : 28
+missed (detected = N)      : 0
+false positives            : 0
+detection rate             : 100.0% (28/28)
+
+Note: all checks are contract-driven (rules compiled from contracts/*.yaml, executed
+read-only). Time-based rules evaluated at the fixed as-of date 2025-06-30 (ADR-03).

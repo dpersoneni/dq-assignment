@@ -1,0 +1,61 @@
+{
+  "generated_at": "2026-11-15 11:55:49",
+  "catalogue": "simulated data product marketplace (JSON, per brief)",
+  "products": [
+    {
+      "contract_id": "accounts",
+      "product": "accounts",
+      "table": "accounts",
+      "quality_score": 10,
+      "status": "FAILING",
+      "open_issues": 6,
+      "owner": "accounts.owner@dq-bank.example",
+      "steward": "accounts.steward@dq-bank.example",
+      "last_run_id": 6
+    },
+    {
+      "contract_id": "cards",
+      "product": "cards",
+      "table": "cards",
+      "quality_score": 20,
+      "status": "FAILING",
+      "open_issues": 4,
+      "owner": "cards.owner@dq-bank.example",
+      "steward": "cards.steward@dq-bank.example",
+      "last_run_id": 7
+    },
+    {
+      "contract_id": "customers",
+      "product": "customers",
+      "table": "customers",
+      "quality_score": 0,
+      "status": "FAILING",
+      "open_issues": 7,
+      "owner": "data.owner@dq-bank.example",
+      "steward": "data.steward@dq-bank.example",
+      "last_run_id": 8
+    },
+    {
+      "contract_id": "loans",
+      "product": "loans",
+      "table": "loans",
+      "quality_score": 40,
+      "status": "FAILING",
+      "open_issues": 4,
+      "owner": "lending.owner@dq-bank.example",
+      "steward": "lending.steward@dq-bank.example",
+      "last_run_id": 9
+    },
+    {
+      "contract_id": "transactions",
+      "product": "transactions",
+      "table": "transactions",
+      "quality_score": 5,
+      "status": "FAILING",
+      "open_issues": 7,
+      "owner": "payments.owner@dq-bank.example",
+      "steward": "payments.steward@dq-bank.example",
+      "last_run_id": 10
+    }
+  ]
+}

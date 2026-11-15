@@ -2,10 +2,11 @@
 .env
 *.key
 
-# generated artifacts
-out/
+# generated databases (regenerable via `python run.py seed` / `init`)
 data/banking.db
 dq.db
+# out/ IS committed on purpose: detection report + demo transcript are deliverables;
+# dashboard/marketplace/notifications are regenerable via `python run.py demo --auto-approve`
 
 # python
 __pycache__/

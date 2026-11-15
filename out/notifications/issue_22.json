@@ -1,0 +1,26 @@
+{
+  "channel": "file (simulated email)",
+  "sent_at": "2026-11-15 11:50:39",
+  "to": {
+    "owner": "payments.owner@dq-bank.example",
+    "steward": "payments.steward@dq-bank.example"
+  },
+  "subject": "[DQ][HIGH] transactions: rule 'tx_account_fk' failing (1 rows)",
+  "body": "Data contract 'transactions' (table transactions) rule 'tx_account_fk' [consistency/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: every transaction must reference an existing account\nField: transactions\nSample offending keys: [[52]]\nExplore/fix interactively: python run.py resolve --issue 22",
+  "issue": {
+    "issue_id": 22,
+    "contract_id": "transactions",
+    "rule_id": "tx_account_fk",
+    "dimension": "consistency",
+    "severity": "HIGH",
+    "table_name": "transactions",
+    "column_name": null,
+    "rows_affected": 1,
+    "occurrences": 1
+  },
+  "sample_offending_keys": [
+    [
+      52
+    ]
+  ]
+}

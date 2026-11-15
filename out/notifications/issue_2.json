@@ -1,0 +1,26 @@
+{
+  "channel": "file (simulated email)",
+  "sent_at": "2026-11-15 11:50:39",
+  "to": {
+    "owner": "accounts.owner@dq-bank.example",
+    "steward": "accounts.steward@dq-bank.example"
+  },
+  "subject": "[DQ][MEDIUM] accounts: rule 'balance_checking_non_negative' failing (1 rows)",
+  "body": "Data contract 'accounts' (table accounts) rule 'balance_checking_non_negative' [consistency/MEDIUM] is failing: 1 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: CHECKING accounts do not allow overdrafts, balance must be >= 0\nField: accounts\nSample offending keys: [[12]]\nExplore/fix interactively: python run.py resolve --issue 2",
+  "issue": {
+    "issue_id": 2,
+    "contract_id": "accounts",
+    "rule_id": "balance_checking_non_negative",
+    "dimension": "consistency",
+    "severity": "MEDIUM",
+    "table_name": "accounts",
+    "column_name": null,
+    "rows_affected": 1,
+    "occurrences": 1
+  },
+  "sample_offending_keys": [
+    [
+      12
+    ]
+  ]
+}
