@@ -6,7 +6,7 @@ D04,customers,date_of_birth,future date,timeliness,HIGH,1,dob_not_future,Y,1
 D05,customers,date_of_birth,implausible value (under 18),accuracy,HIGH,1,dob_min_age_18,Y,1
 D06,customers,kyc_status,value outside allowed set,validity,HIGH,1,kyc_status_enum,Y,1
 D07,customers,phone,null value,completeness,LOW,1,phone_not_null,Y,1
-D08,accounts,customer_id,orphan foreign key,integrity,HIGH,1,account_customer_fk,Y,1
+D08,accounts,customer_id,orphan foreign key,integrity,HIGH,1,account_customer_fk,N,0
 D09,accounts,currency,null value,completeness,MEDIUM,1,currency_not_null,Y,1
 D10,accounts,currency,invalid ISO 4217 code,validity,HIGH,1,currency_iso4217,Y,1
 D11,accounts,balance,negative balance on non-overdraft account,consistency,MEDIUM,1,balance_checking_non_negative,Y,1

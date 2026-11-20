@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-20 10:01:16",
+  "sent_at": "2026-11-20 12:37:57",
   "to": {
     "owner": "cards.owner@dq-bank.example",
     "steward": "cards.steward@dq-bank.example"
   },
   "subject": "[DQ][HIGH] cards: rule 'card_not_expired_while_active' failing (1 rows)",
-  "body": "Data contract 'cards' (table cards) rule 'card_not_expired_while_active' [consistency/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-20 10:01:16.\nCheck: a card past its expiry_date must not remain ACTIVE\nField: cards\nSample offending keys: [[11]]\nExplore/fix interactively: python run.py resolve --issue 8",
+  "body": "Data contract 'cards' (table cards) rule 'card_not_expired_while_active' [consistency/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-20 12:37:56.\nCheck: a card past its expiry_date must not remain ACTIVE\nField: cards\nSample offending keys: [[11]]\nExplore/fix interactively: python run.py resolve --issue 8",
   "issue": {
     "issue_id": 8,
     "contract_id": "cards",

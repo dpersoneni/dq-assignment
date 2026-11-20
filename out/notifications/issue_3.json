@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-20 10:01:16",
+  "sent_at": "2026-11-20 12:37:57",
   "to": {
     "owner": "accounts.owner@dq-bank.example",
     "steward": "accounts.steward@dq-bank.example"
   },
   "subject": "[DQ][MEDIUM] accounts: rule 'opened_not_future' failing (1 rows)",
-  "body": "Data contract 'accounts' (table accounts) rule 'opened_not_future' [timeliness/MEDIUM] is failing: 1 row(s) affected, seen 1x since 2026-11-20 10:01:15.\nCheck: opened_date must not be in the future\nField: accounts\nSample offending keys: [[11]]\nExplore/fix interactively: python run.py resolve --issue 3",
+  "body": "Data contract 'accounts' (table accounts) rule 'opened_not_future' [timeliness/MEDIUM] is failing: 1 row(s) affected, seen 1x since 2026-11-20 12:37:56.\nCheck: opened_date must not be in the future\nField: accounts\nSample offending keys: [[11]]\nExplore/fix interactively: python run.py resolve --issue 3",
   "issue": {
     "issue_id": 3,
     "contract_id": "accounts",

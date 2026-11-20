@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-20 10:01:16",
+  "sent_at": "2026-11-20 12:37:57",
   "to": {
     "owner": "data.owner@dq-bank.example",
     "steward": "data.steward@dq-bank.example"
   },
   "subject": "[DQ][LOW] customers: rule 'phone_not_null' failing (1 rows)",
-  "body": "Data contract 'customers' (table customers) rule 'phone_not_null' [completeness/LOW] is failing: 1 row(s) affected, seen 1x since 2026-11-20 10:01:16.\nCheck: phone should be present for contactability\nField: customers.phone\nSample offending keys: [[4]]\nExplore/fix interactively: python run.py resolve --issue 14",
+  "body": "Data contract 'customers' (table customers) rule 'phone_not_null' [completeness/LOW] is failing: 1 row(s) affected, seen 1x since 2026-11-20 12:37:57.\nCheck: phone should be present for contactability\nField: customers.phone\nSample offending keys: [[4]]\nExplore/fix interactively: python run.py resolve --issue 14",
   "issue": {
     "issue_id": 14,
     "contract_id": "customers",

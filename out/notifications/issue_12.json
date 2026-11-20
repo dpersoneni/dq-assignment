@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-20 10:01:16",
+  "sent_at": "2026-11-20 12:37:57",
   "to": {
     "owner": "data.owner@dq-bank.example",
     "steward": "data.steward@dq-bank.example"
   },
   "subject": "[DQ][HIGH] customers: rule 'email_unique' failing (2 rows)",
-  "body": "Data contract 'customers' (table customers) rule 'email_unique' [uniqueness/HIGH] is failing: 2 row(s) affected, seen 1x since 2026-11-20 10:01:16.\nCheck: no two customers may share an email address\nField: customers.email\nSample offending keys: [[1], [10]]\nExplore/fix interactively: python run.py resolve --issue 12",
+  "body": "Data contract 'customers' (table customers) rule 'email_unique' [uniqueness/HIGH] is failing: 2 row(s) affected, seen 1x since 2026-11-20 12:37:57.\nCheck: no two customers may share an email address\nField: customers.email\nSample offending keys: [[1], [10]]\nExplore/fix interactively: python run.py resolve --issue 12",
   "issue": {
     "issue_id": 12,
     "contract_id": "customers",

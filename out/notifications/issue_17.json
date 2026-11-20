@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-20 10:01:16",
+  "sent_at": "2026-11-20 12:37:57",
   "to": {
     "owner": "data.owner@dq-bank.example",
     "steward": "data.steward@dq-bank.example"
   },
   "subject": "[DQ][HIGH] customers: rule 'kyc_status_enum' failing (1 rows)",
-  "body": "Data contract 'customers' (table customers) rule 'kyc_status_enum' [conformity/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-20 10:01:16.\nCheck: kyc_status must be one of PENDING, VERIFIED, REJECTED\nField: customers.kyc_status\nSample offending keys: [[5]]\nExplore/fix interactively: python run.py resolve --issue 17",
+  "body": "Data contract 'customers' (table customers) rule 'kyc_status_enum' [conformity/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-20 12:37:57.\nCheck: kyc_status must be one of PENDING, VERIFIED, REJECTED\nField: customers.kyc_status\nSample offending keys: [[5]]\nExplore/fix interactively: python run.py resolve --issue 17",
   "issue": {
     "issue_id": 17,
     "contract_id": "customers",

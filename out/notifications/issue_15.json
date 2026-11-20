@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-20 10:01:16",
+  "sent_at": "2026-11-20 12:37:57",
   "to": {
     "owner": "data.owner@dq-bank.example",
     "steward": "data.steward@dq-bank.example"
   },
   "subject": "[DQ][HIGH] customers: rule 'dob_not_future' failing (1 rows)",
-  "body": "Data contract 'customers' (table customers) rule 'dob_not_future' [timeliness/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-20 10:01:16.\nCheck: date_of_birth must not be in the future\nField: customers.date_of_birth\nSample offending keys: [[7]]\nExplore/fix interactively: python run.py resolve --issue 15",
+  "body": "Data contract 'customers' (table customers) rule 'dob_not_future' [timeliness/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-20 12:37:57.\nCheck: date_of_birth must not be in the future\nField: customers.date_of_birth\nSample offending keys: [[7]]\nExplore/fix interactively: python run.py resolve --issue 15",
   "issue": {
     "issue_id": 15,
     "contract_id": "customers",

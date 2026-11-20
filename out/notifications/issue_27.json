@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-20 10:01:16",
+  "sent_at": "2026-11-20 12:37:57",
   "to": {
     "owner": "payments.owner@dq-bank.example",
     "steward": "payments.steward@dq-bank.example"
   },
   "subject": "[DQ][MEDIUM] transactions: rule 'amount_sign_matches_type' failing (1 rows)",
-  "body": "Data contract 'transactions' (table transactions) rule 'amount_sign_matches_type' [conformity/MEDIUM] is failing: 1 row(s) affected, seen 1x since 2026-11-20 10:01:16.\nCheck: DEBIT amounts must be negative, CREDIT amounts positive\nField: transactions.amount\nSample offending keys: [[57]]\nExplore/fix interactively: python run.py resolve --issue 27",
+  "body": "Data contract 'transactions' (table transactions) rule 'amount_sign_matches_type' [conformity/MEDIUM] is failing: 1 row(s) affected, seen 1x since 2026-11-20 12:37:57.\nCheck: DEBIT amounts must be negative, CREDIT amounts positive\nField: transactions.amount\nSample offending keys: [[57]]\nExplore/fix interactively: python run.py resolve --issue 27",
   "issue": {
     "issue_id": 27,
     "contract_id": "transactions",

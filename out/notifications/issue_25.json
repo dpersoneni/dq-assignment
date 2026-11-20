@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-20 10:01:16",
+  "sent_at": "2026-11-20 12:37:57",
   "to": {
     "owner": "payments.owner@dq-bank.example",
     "steward": "payments.steward@dq-bank.example"
   },
   "subject": "[DQ][HIGH] transactions: rule 'amount_not_null' failing (2 rows)",
-  "body": "Data contract 'transactions' (table transactions) rule 'amount_not_null' [completeness/HIGH] is failing: 2 row(s) affected, seen 1x since 2026-11-20 10:01:16.\nCheck: \nField: transactions.amount\nSample offending keys: [[49], [50]]\nExplore/fix interactively: python run.py resolve --issue 25",
+  "body": "Data contract 'transactions' (table transactions) rule 'amount_not_null' [completeness/HIGH] is failing: 2 row(s) affected, seen 1x since 2026-11-20 12:37:57.\nCheck: \nField: transactions.amount\nSample offending keys: [[49], [50]]\nExplore/fix interactively: python run.py resolve --issue 25",
   "issue": {
     "issue_id": 25,
     "contract_id": "transactions",

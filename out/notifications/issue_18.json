@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-20 10:01:16",
+  "sent_at": "2026-11-20 12:37:57",
   "to": {
     "owner": "lending.owner@dq-bank.example",
     "steward": "lending.steward@dq-bank.example"
   },
   "subject": "[DQ][MEDIUM] loans: rule 'max_one_active_loan_per_customer' failing (2 rows)",
-  "body": "Data contract 'loans' (table loans) rule 'max_one_active_loan_per_customer' [uniqueness/MEDIUM] is failing: 2 row(s) affected, seen 1x since 2026-11-20 10:01:16.\nCheck: a customer may have at most one ACTIVE loan at a time\nField: loans\nSample offending keys: [[1], [8]]\nExplore/fix interactively: python run.py resolve --issue 18",
+  "body": "Data contract 'loans' (table loans) rule 'max_one_active_loan_per_customer' [uniqueness/MEDIUM] is failing: 2 row(s) affected, seen 1x since 2026-11-20 12:37:57.\nCheck: a customer may have at most one ACTIVE loan at a time\nField: loans\nSample offending keys: [[1], [8]]\nExplore/fix interactively: python run.py resolve --issue 18",
   "issue": {
     "issue_id": 18,
     "contract_id": "loans",

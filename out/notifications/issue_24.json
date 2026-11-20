@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-20 10:01:16",
+  "sent_at": "2026-11-20 12:37:57",
   "to": {
     "owner": "payments.owner@dq-bank.example",
     "steward": "payments.steward@dq-bank.example"
   },
   "subject": "[DQ][HIGH] transactions: rule 'tx_currency_matches_account' failing (2 rows)",
-  "body": "Data contract 'transactions' (table transactions) rule 'tx_currency_matches_account' [consistency/HIGH] is failing: 2 row(s) affected, seen 1x since 2026-11-20 10:01:16.\nCheck: transaction currency must equal the currency of its account\nField: transactions\nSample offending keys: [[55], [56]]\nExplore/fix interactively: python run.py resolve --issue 24",
+  "body": "Data contract 'transactions' (table transactions) rule 'tx_currency_matches_account' [consistency/HIGH] is failing: 2 row(s) affected, seen 1x since 2026-11-20 12:37:57.\nCheck: transaction currency must equal the currency of its account\nField: transactions\nSample offending keys: [[55], [56]]\nExplore/fix interactively: python run.py resolve --issue 24",
   "issue": {
     "issue_id": 24,
     "contract_id": "transactions",
