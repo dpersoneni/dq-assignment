@@ -50,10 +50,10 @@ python run.py tick
 
 ## 3. Q&A cheat sheet (answers live in `DESIGN_DECISIONS.md`)
 
-- Why agents vs one agent / plain script → §8 + ADR-04/06
-- Where deterministic code instead of LLM → §8; `grep -r mistral src/dq` shows the LLM client is only used via `agents/base.py`
+- Why agents vs one agent / plain script → §7 + ADR-04/06
+- Where deterministic code instead of LLM → §7; `grep -r mistral src/dq` shows the LLM client is only used via `agents/base.py`
 - Human-in-the-loop points → ADR-07/17 (contract approval, issue resolution write-back)
-- KPIs (measured) → §6: 100% detection (28/28, 0 FP), 5/5 contracts active, 1.04 s pipeline, $0 steady-state LLM cost
-- What breaks at 500 contracts / 50 sources → §6
-- Safeguards: invented rules / misrouting / sensitive data → §8
+- KPIs (measured) → §5: 100% detection (28/28, 0 FP), 5/5 contracts active, 1.04 s pipeline, $0 steady-state LLM cost
+- What breaks at 500 contracts / 50 sources → §5
+- Safeguards: invented rules / misrouting / sensitive data → §7
 - MCP considered → ADR-18

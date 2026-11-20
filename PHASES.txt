@@ -73,9 +73,9 @@
 
 ## DONE (cont.)
 - Phase 11 — Task 2 docs: README runbook (fresh-clone run instructions + disclosure);
-  DESIGN_DECISIONS.md §6 filled with MEASURED values (detection 100% 28/28, 0 FP; 5/5 active
+  DESIGN_DECISIONS.md §5 filled with MEASURED values (detection 100% 28/28, 0 FP; 5/5 active
   contracts; pipeline 1.04s wall; A1 draft = 2 calls / 8,029 tokens ≈ $0.0016; steady-state
-  scheduled run = $0 LLM) + scale analysis for 500 contracts / 50 sources; new §8 answers the
+  scheduled run = $0 LLM) + scale analysis for 500 contracts / 50 sources; new §7 answers the
   brief's Task 2 questions (agent split vs one agent vs script, deterministic-vs-LLM,
   KPIs, safeguards against invented rules / misrouting / data exposure, options, MVP line).
 
@@ -106,3 +106,7 @@
 - Phase 13 (final polish, done 2026-11-15): generated out/detection_report.xlsx via openpyxl
   (tab "Detection Report" + "Summary"), wrote out/demo/slides.html (8-slide deck, arrow keys),
   created the submission zip.
+- DDR trimmed to assignment-relevant design decisions only: merged the two credential ADRs
+  into one safeguard ADR (ADR-12), removed the local-process .env-loader ADR, moved the backlog
+  pointer here (PHASES.txt); sections renumbered (§5 metrics, §6 disclosure, §7 Task 2) and
+  cross-refs in DEMO.md/PHASES.txt updated.
