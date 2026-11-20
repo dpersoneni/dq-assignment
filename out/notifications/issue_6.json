@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-15 11:50:39",
+  "sent_at": "2026-11-20 10:01:16",
   "to": {
     "owner": "accounts.owner@dq-bank.example",
     "steward": "accounts.steward@dq-bank.example"
   },
   "subject": "[DQ][HIGH] accounts: rule 'currency_iso4217' failing (1 rows)",
-  "body": "Data contract 'accounts' (table accounts) rule 'currency_iso4217' [conformity/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: currency must be a known ISO 4217 code\nField: accounts.currency\nSample offending keys: [[13]]\nExplore/fix interactively: python run.py resolve --issue 6",
+  "body": "Data contract 'accounts' (table accounts) rule 'currency_iso4217' [conformity/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-20 10:01:15.\nCheck: currency must be a known ISO 4217 code\nField: accounts.currency\nSample offending keys: [[13]]\nExplore/fix interactively: python run.py resolve --issue 6",
   "issue": {
     "issue_id": 6,
     "contract_id": "accounts",

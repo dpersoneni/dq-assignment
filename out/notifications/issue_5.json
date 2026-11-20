@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-15 11:50:39",
+  "sent_at": "2026-11-20 10:01:16",
   "to": {
     "owner": "accounts.owner@dq-bank.example",
     "steward": "accounts.steward@dq-bank.example"
   },
   "subject": "[DQ][MEDIUM] accounts: rule 'currency_not_null' failing (1 rows)",
-  "body": "Data contract 'accounts' (table accounts) rule 'currency_not_null' [completeness/MEDIUM] is failing: 1 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: \nField: accounts.currency\nSample offending keys: [[14]]\nExplore/fix interactively: python run.py resolve --issue 5",
+  "body": "Data contract 'accounts' (table accounts) rule 'currency_not_null' [completeness/MEDIUM] is failing: 1 row(s) affected, seen 1x since 2026-11-20 10:01:15.\nCheck: \nField: accounts.currency\nSample offending keys: [[14]]\nExplore/fix interactively: python run.py resolve --issue 5",
   "issue": {
     "issue_id": 5,
     "contract_id": "accounts",

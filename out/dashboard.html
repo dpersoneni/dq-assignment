@@ -2,51 +2,51 @@
 <title>DQ Monitor — dashboard</title>
 <style>body{font-family:system-ui,sans-serif;margin:2rem;color:#111}table{border-collapse:collapse;margin:1rem 0}th,td{border:1px solid #ccc;padding:4px 10px;text-align:left;font-size:14px}th{background:#f0f0f0}.HIGH{color:#b00}.MEDIUM{color:#a60}.LOW{color:#666}.PASSING{color:#080}.DEGRADED{color:#a60}.FAILING{color:#b00}</style>
 </head><body>
-<h1>Data Quality Monitor</h1><p>Generated 2026-11-15 11:55:49 UTC — static snapshot from dq.db</p>
+<h1>Data Quality Monitor</h1><p>Generated 2026-11-20 10:01:16 UTC — static snapshot from dq.db</p>
 <h2>Quality per data contract</h2>
 <table><tr><th>contract</th><th>table</th><th>last run</th><th>failing rules</th><th>open HIGH</th><th>open MEDIUM</th><th>open LOW</th><th>score</th><th>status</th></tr>
-<tr><td>accounts</td><td>accounts</td><td>#6 2026-11-15 11:55:49</td><td>6/6</td><td class='HIGH'>3</td><td class='MEDIUM'>3</td><td class='LOW'>0</td><td>10</td><td class='FAILING'>FAILING</td></tr>
-<tr><td>cards</td><td>cards</td><td>#7 2026-11-15 11:55:49</td><td>4/4</td><td class='HIGH'>4</td><td class='MEDIUM'>0</td><td class='LOW'>0</td><td>20</td><td class='FAILING'>FAILING</td></tr>
-<tr><td>customers</td><td>customers</td><td>#8 2026-11-15 11:55:49</td><td>7/7</td><td class='HIGH'>5</td><td class='MEDIUM'>1</td><td class='LOW'>1</td><td>0</td><td class='FAILING'>FAILING</td></tr>
-<tr><td>loans</td><td>loans</td><td>#9 2026-11-15 11:55:49</td><td>4/4</td><td class='HIGH'>2</td><td class='MEDIUM'>2</td><td class='LOW'>0</td><td>40</td><td class='FAILING'>FAILING</td></tr>
-<tr><td>transactions</td><td>transactions</td><td>#10 2026-11-15 11:55:49</td><td>7/7</td><td class='HIGH'>3</td><td class='MEDIUM'>3</td><td class='LOW'>1</td><td>5</td><td class='FAILING'>FAILING</td></tr>
+<tr><td>accounts</td><td>accounts</td><td>#1 2026-11-20 10:01:15</td><td>6/6</td><td class='HIGH'>3</td><td class='MEDIUM'>3</td><td class='LOW'>0</td><td>10</td><td class='FAILING'>FAILING</td></tr>
+<tr><td>cards</td><td>cards</td><td>#2 2026-11-20 10:01:16</td><td>4/4</td><td class='HIGH'>4</td><td class='MEDIUM'>0</td><td class='LOW'>0</td><td>20</td><td class='FAILING'>FAILING</td></tr>
+<tr><td>customers</td><td>customers</td><td>#3 2026-11-20 10:01:16</td><td>7/7</td><td class='HIGH'>5</td><td class='MEDIUM'>1</td><td class='LOW'>1</td><td>0</td><td class='FAILING'>FAILING</td></tr>
+<tr><td>loans</td><td>loans</td><td>#4 2026-11-20 10:01:16</td><td>4/4</td><td class='HIGH'>2</td><td class='MEDIUM'>2</td><td class='LOW'>0</td><td>40</td><td class='FAILING'>FAILING</td></tr>
+<tr><td>transactions</td><td>transactions</td><td>#5 2026-11-20 10:01:16</td><td>7/7</td><td class='HIGH'>3</td><td class='MEDIUM'>3</td><td class='LOW'>1</td><td>5</td><td class='FAILING'>FAILING</td></tr>
 </table>
 <h2>Trend — issues found per run (last 10 per contract)</h2>
 <table><tr><th>contract</th></tr>
-<tr><td>accounts</td><td colspan='10'><td>#1 (sche): 6 fail</td><td>#6 (sche): 6 fail</td></td></tr>
-<tr><td>cards</td><td colspan='10'><td>#2 (sche): 4 fail</td><td>#7 (sche): 4 fail</td></td></tr>
-<tr><td>customers</td><td colspan='10'><td>#3 (sche): 7 fail</td><td>#8 (sche): 7 fail</td></td></tr>
-<tr><td>loans</td><td colspan='10'><td>#4 (sche): 4 fail</td><td>#9 (sche): 4 fail</td></td></tr>
-<tr><td>transactions</td><td colspan='10'><td>#5 (sche): 7 fail</td><td>#10 (sche): 7 fail</td></td></tr>
+<tr><td>accounts</td><td colspan='10'><td>#1 (manu): 6 fail</td></td></tr>
+<tr><td>cards</td><td colspan='10'><td>#2 (manu): 4 fail</td></td></tr>
+<tr><td>customers</td><td colspan='10'><td>#3 (manu): 7 fail</td></td></tr>
+<tr><td>loans</td><td colspan='10'><td>#4 (manu): 4 fail</td></td></tr>
+<tr><td>transactions</td><td colspan='10'><td>#5 (manu): 7 fail</td></td></tr>
 </table>
 <h2>Open issues by rule / dimension / severity</h2>
 <table><tr><th>issue</th><th>contract</th><th>rule</th><th>dimension</th><th>severity</th><th>table.column</th><th>rows</th><th>occurrences</th><th>first seen</th><th>last seen</th></tr>
-<tr><td>2</td><td>accounts</td><td>balance_checking_non_negative</td><td>consistency</td><td class='MEDIUM'>MEDIUM</td><td>accounts</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>5</td><td>accounts</td><td>currency_not_null</td><td>completeness</td><td class='MEDIUM'>MEDIUM</td><td>accounts.currency</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>3</td><td>accounts</td><td>opened_not_future</td><td>timeliness</td><td class='MEDIUM'>MEDIUM</td><td>accounts</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>13</td><td>customers</td><td>email_format</td><td>conformity</td><td class='MEDIUM'>MEDIUM</td><td>customers.email</td><td>2</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>18</td><td>loans</td><td>max_one_active_loan_per_customer</td><td>uniqueness</td><td class='MEDIUM'>MEDIUM</td><td>loans</td><td>2</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>21</td><td>loans</td><td>term_months_positive</td><td>conformity</td><td class='MEDIUM'>MEDIUM</td><td>loans.term_months</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>27</td><td>transactions</td><td>amount_sign_matches_type</td><td>conformity</td><td class='MEDIUM'>MEDIUM</td><td>transactions.amount</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>23</td><td>transactions</td><td>occurred_not_future</td><td>timeliness</td><td class='MEDIUM'>MEDIUM</td><td>transactions</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>28</td><td>transactions</td><td>status_enum</td><td>conformity</td><td class='MEDIUM'>MEDIUM</td><td>transactions.status</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>14</td><td>customers</td><td>phone_not_null</td><td>completeness</td><td class='LOW'>LOW</td><td>customers.phone</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>26</td><td>transactions</td><td>amount_nonzero</td><td>conformity</td><td class='LOW'>LOW</td><td>transactions.amount</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>1</td><td>accounts</td><td>account_customer_fk</td><td>consistency</td><td class='HIGH'>HIGH</td><td>accounts</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>6</td><td>accounts</td><td>currency_iso4217</td><td>conformity</td><td class='HIGH'>HIGH</td><td>accounts.currency</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>4</td><td>accounts</td><td>iban_unique</td><td>uniqueness</td><td class='HIGH'>HIGH</td><td>accounts.iban</td><td>2</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>7</td><td>cards</td><td>card_account_fk</td><td>consistency</td><td class='HIGH'>HIGH</td><td>cards</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>8</td><td>cards</td><td>card_not_expired_while_active</td><td>consistency</td><td class='HIGH'>HIGH</td><td>cards</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>9</td><td>cards</td><td>card_number_format</td><td>conformity</td><td class='HIGH'>HIGH</td><td>cards.card_number</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>10</td><td>cards</td><td>card_number_unique</td><td>uniqueness</td><td class='HIGH'>HIGH</td><td>cards.card_number</td><td>2</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>16</td><td>customers</td><td>dob_min_age_18</td><td>accuracy</td><td class='HIGH'>HIGH</td><td>customers.date_of_birth</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>15</td><td>customers</td><td>dob_not_future</td><td>timeliness</td><td class='HIGH'>HIGH</td><td>customers.date_of_birth</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>11</td><td>customers</td><td>email_not_null</td><td>completeness</td><td class='HIGH'>HIGH</td><td>customers.email</td><td>2</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>12</td><td>customers</td><td>email_unique</td><td>uniqueness</td><td class='HIGH'>HIGH</td><td>customers.email</td><td>2</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>17</td><td>customers</td><td>kyc_status_enum</td><td>conformity</td><td class='HIGH'>HIGH</td><td>customers.kyc_status</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>20</td><td>loans</td><td>interest_rate_range</td><td>conformity</td><td class='HIGH'>HIGH</td><td>loans.interest_rate</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>19</td><td>loans</td><td>principal_positive</td><td>conformity</td><td class='HIGH'>HIGH</td><td>loans.principal</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>25</td><td>transactions</td><td>amount_not_null</td><td>completeness</td><td class='HIGH'>HIGH</td><td>transactions.amount</td><td>2</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>22</td><td>transactions</td><td>tx_account_fk</td><td>consistency</td><td class='HIGH'>HIGH</td><td>transactions</td><td>1</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
-<tr><td>24</td><td>transactions</td><td>tx_currency_matches_account</td><td>consistency</td><td class='HIGH'>HIGH</td><td>transactions</td><td>2</td><td>2</td><td>2026-11-15 11:50:39</td><td>2026-11-15 11:55:49</td></tr>
+<tr><td>2</td><td>accounts</td><td>balance_checking_non_negative</td><td>consistency</td><td class='MEDIUM'>MEDIUM</td><td>accounts</td><td>1</td><td>1</td><td>2026-11-20 10:01:15</td><td>2026-11-20 10:01:15</td></tr>
+<tr><td>5</td><td>accounts</td><td>currency_not_null</td><td>completeness</td><td class='MEDIUM'>MEDIUM</td><td>accounts.currency</td><td>1</td><td>1</td><td>2026-11-20 10:01:15</td><td>2026-11-20 10:01:15</td></tr>
+<tr><td>3</td><td>accounts</td><td>opened_not_future</td><td>timeliness</td><td class='MEDIUM'>MEDIUM</td><td>accounts</td><td>1</td><td>1</td><td>2026-11-20 10:01:15</td><td>2026-11-20 10:01:15</td></tr>
+<tr><td>13</td><td>customers</td><td>email_format</td><td>conformity</td><td class='MEDIUM'>MEDIUM</td><td>customers.email</td><td>2</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>18</td><td>loans</td><td>max_one_active_loan_per_customer</td><td>uniqueness</td><td class='MEDIUM'>MEDIUM</td><td>loans</td><td>2</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>21</td><td>loans</td><td>term_months_positive</td><td>conformity</td><td class='MEDIUM'>MEDIUM</td><td>loans.term_months</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>27</td><td>transactions</td><td>amount_sign_matches_type</td><td>conformity</td><td class='MEDIUM'>MEDIUM</td><td>transactions.amount</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>23</td><td>transactions</td><td>occurred_not_future</td><td>timeliness</td><td class='MEDIUM'>MEDIUM</td><td>transactions</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>28</td><td>transactions</td><td>status_enum</td><td>conformity</td><td class='MEDIUM'>MEDIUM</td><td>transactions.status</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>14</td><td>customers</td><td>phone_not_null</td><td>completeness</td><td class='LOW'>LOW</td><td>customers.phone</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>26</td><td>transactions</td><td>amount_nonzero</td><td>conformity</td><td class='LOW'>LOW</td><td>transactions.amount</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>1</td><td>accounts</td><td>account_customer_fk</td><td>consistency</td><td class='HIGH'>HIGH</td><td>accounts</td><td>1</td><td>1</td><td>2026-11-20 10:01:15</td><td>2026-11-20 10:01:15</td></tr>
+<tr><td>6</td><td>accounts</td><td>currency_iso4217</td><td>conformity</td><td class='HIGH'>HIGH</td><td>accounts.currency</td><td>1</td><td>1</td><td>2026-11-20 10:01:15</td><td>2026-11-20 10:01:15</td></tr>
+<tr><td>4</td><td>accounts</td><td>iban_unique</td><td>uniqueness</td><td class='HIGH'>HIGH</td><td>accounts.iban</td><td>2</td><td>1</td><td>2026-11-20 10:01:15</td><td>2026-11-20 10:01:15</td></tr>
+<tr><td>7</td><td>cards</td><td>card_account_fk</td><td>consistency</td><td class='HIGH'>HIGH</td><td>cards</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>8</td><td>cards</td><td>card_not_expired_while_active</td><td>consistency</td><td class='HIGH'>HIGH</td><td>cards</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>9</td><td>cards</td><td>card_number_format</td><td>conformity</td><td class='HIGH'>HIGH</td><td>cards.card_number</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>10</td><td>cards</td><td>card_number_unique</td><td>uniqueness</td><td class='HIGH'>HIGH</td><td>cards.card_number</td><td>2</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>16</td><td>customers</td><td>dob_min_age_18</td><td>accuracy</td><td class='HIGH'>HIGH</td><td>customers.date_of_birth</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>15</td><td>customers</td><td>dob_not_future</td><td>timeliness</td><td class='HIGH'>HIGH</td><td>customers.date_of_birth</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>11</td><td>customers</td><td>email_not_null</td><td>completeness</td><td class='HIGH'>HIGH</td><td>customers.email</td><td>2</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>12</td><td>customers</td><td>email_unique</td><td>uniqueness</td><td class='HIGH'>HIGH</td><td>customers.email</td><td>2</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>17</td><td>customers</td><td>kyc_status_enum</td><td>conformity</td><td class='HIGH'>HIGH</td><td>customers.kyc_status</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>20</td><td>loans</td><td>interest_rate_range</td><td>conformity</td><td class='HIGH'>HIGH</td><td>loans.interest_rate</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>19</td><td>loans</td><td>principal_positive</td><td>conformity</td><td class='HIGH'>HIGH</td><td>loans.principal</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>25</td><td>transactions</td><td>amount_not_null</td><td>completeness</td><td class='HIGH'>HIGH</td><td>transactions.amount</td><td>2</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>22</td><td>transactions</td><td>tx_account_fk</td><td>consistency</td><td class='HIGH'>HIGH</td><td>transactions</td><td>1</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
+<tr><td>24</td><td>transactions</td><td>tx_currency_matches_account</td><td>consistency</td><td class='HIGH'>HIGH</td><td>transactions</td><td>2</td><td>1</td><td>2026-11-20 10:01:16</td><td>2026-11-20 10:01:16</td></tr>
 </table></body></html>

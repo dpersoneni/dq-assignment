@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-15 11:50:39",
+  "sent_at": "2026-11-20 10:01:16",
   "to": {
     "owner": "payments.owner@dq-bank.example",
     "steward": "payments.steward@dq-bank.example"
   },
   "subject": "[DQ][MEDIUM] transactions: rule 'occurred_not_future' failing (1 rows)",
-  "body": "Data contract 'transactions' (table transactions) rule 'occurred_not_future' [timeliness/MEDIUM] is failing: 1 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: occurred_at must not be in the future\nField: transactions\nSample offending keys: [[53]]\nExplore/fix interactively: python run.py resolve --issue 23",
+  "body": "Data contract 'transactions' (table transactions) rule 'occurred_not_future' [timeliness/MEDIUM] is failing: 1 row(s) affected, seen 1x since 2026-11-20 10:01:16.\nCheck: occurred_at must not be in the future\nField: transactions\nSample offending keys: [[53]]\nExplore/fix interactively: python run.py resolve --issue 23",
   "issue": {
     "issue_id": 23,
     "contract_id": "transactions",

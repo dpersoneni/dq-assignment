@@ -1,0 +1,128 @@
+version: 1.0.0
+apiVersion: v3.0.0
+kind: DataContract
+id: urn:datacontract:dq-bank:customers:1.0.0
+name: customers
+status: production
+domain: banking
+description:
+  purpose: Track retail banking customers for account opening and compliance.
+  usage: Used by onboarding, marketing, and risk teams.
+  limitations: Contains personal data; access restricted under GDPR/CCPA.
+tags:
+- banking
+- customers
+- retail
+servers:
+- server: sqlite:///data/banking.db
+  type: custom
+team:
+- username: owner@datacontract.com
+  role: owner
+- username: steward@datacontract.com
+  role: data steward
+support:
+- channel: email
+  url: mailto:support@datacontract.com
+slaProperties:
+- property: refresh_frequency
+  value: 1440
+  unit: minutes
+- property: availability
+  value: 99.5
+  unit: percent
+customProperties:
+- property: dqScheduleMin
+  value: 1440
+- property: dqAsOf
+  value: '2025-06-30'
+- property: contractCreatedTs
+  value: '2025-06-01T00:00:00Z'
+schema:
+- name: customers
+  physicalName: customers
+  dataGranularityDescription: One row per retail banking customer.
+  properties:
+  - name: customer_id
+    logicalType: integer
+    physicalType: INTEGER
+    primaryKey: true
+    required: true
+  - name: full_name
+    logicalType: string
+    physicalType: TEXT
+    required: true
+  - name: email
+    logicalType: string
+    physicalType: TEXT
+    required: true
+    unique: true
+    quality:
+    - name: email_not_null
+      type: library
+      rule: nullCount
+      mustBe: 0
+      unit: rows
+      dimension: completeness
+      severity: HIGH
+      description: email must never be NULL
+    - name: email_unique
+      type: library
+      rule: duplicateCount
+      mustBe: 0
+      unit: rows
+      dimension: uniqueness
+      severity: HIGH
+      description: email must be unique across customers
+    - name: email_format
+      type: sql
+      dimension: conformity
+      severity: HIGH
+      unit: rows
+      description: email must be well-formed
+      query: SELECT customer_id FROM ${table} WHERE email NOT LIKE '%_@__%.__%'
+  - name: phone
+    logicalType: string
+    physicalType: TEXT
+    required: true
+    quality:
+    - name: phone_not_null
+      type: library
+      rule: nullCount
+      mustBe: 0
+      unit: rows
+      dimension: completeness
+      severity: HIGH
+      description: phone must never be NULL
+  - name: date_of_birth
+    logicalType: date
+    physicalType: TEXT
+    required: false
+    quality:
+    - name: date_of_birth_not_future
+      type: sql
+      dimension: accuracy
+      severity: HIGH
+      unit: rows
+      description: date_of_birth must not be in the future
+      query: SELECT customer_id FROM ${table} WHERE date_of_birth > DATE('now')
+    - name: date_of_birth_adult
+      type: sql
+      dimension: accuracy
+      severity: HIGH
+      unit: rows
+      description: date_of_birth must indicate customer is at least 18 years old
+      query: SELECT customer_id FROM ${table} WHERE date_of_birth > DATE('now','-18
+        years')
+  - name: country
+    logicalType: string
+    physicalType: TEXT
+    required: false
+  quality:
+  - name: kyc_status_enum
+    type: sql
+    dimension: conformity
+    severity: HIGH
+    unit: rows
+    description: kyc_status must be one of PENDING, VERIFIED, REJECTED
+    query: SELECT customer_id FROM ${table} WHERE kyc_status NOT IN ('PENDING','VERIFIED','REJECTED')

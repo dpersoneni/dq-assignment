@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-15 11:50:39",
+  "sent_at": "2026-11-20 10:01:16",
   "to": {
     "owner": "accounts.owner@dq-bank.example",
     "steward": "accounts.steward@dq-bank.example"
   },
   "subject": "[DQ][HIGH] accounts: rule 'account_customer_fk' failing (1 rows)",
-  "body": "Data contract 'accounts' (table accounts) rule 'account_customer_fk' [consistency/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: every account must reference an existing customer\nField: accounts\nSample offending keys: [[16]]\nExplore/fix interactively: python run.py resolve --issue 1",
+  "body": "Data contract 'accounts' (table accounts) rule 'account_customer_fk' [consistency/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-20 10:01:15.\nCheck: every account must reference an existing customer\nField: accounts\nSample offending keys: [[16]]\nExplore/fix interactively: python run.py resolve --issue 1",
   "issue": {
     "issue_id": 1,
     "contract_id": "accounts",

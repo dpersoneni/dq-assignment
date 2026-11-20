@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-15 11:50:39",
+  "sent_at": "2026-11-20 10:01:16",
   "to": {
     "owner": "lending.owner@dq-bank.example",
     "steward": "lending.steward@dq-bank.example"
   },
   "subject": "[DQ][HIGH] loans: rule 'interest_rate_range' failing (1 rows)",
-  "body": "Data contract 'loans' (table loans) rule 'interest_rate_range' [conformity/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: annual interest rate must be within 0-100 percent\nField: loans.interest_rate\nSample offending keys: [[5]]\nExplore/fix interactively: python run.py resolve --issue 20",
+  "body": "Data contract 'loans' (table loans) rule 'interest_rate_range' [conformity/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-20 10:01:16.\nCheck: annual interest rate must be within 0-100 percent\nField: loans.interest_rate\nSample offending keys: [[5]]\nExplore/fix interactively: python run.py resolve --issue 20",
   "issue": {
     "issue_id": 20,
     "contract_id": "loans",

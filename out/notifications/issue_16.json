@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-15 11:50:39",
+  "sent_at": "2026-11-20 10:01:16",
   "to": {
     "owner": "data.owner@dq-bank.example",
     "steward": "data.steward@dq-bank.example"
   },
   "subject": "[DQ][HIGH] customers: rule 'dob_min_age_18' failing (1 rows)",
-  "body": "Data contract 'customers' (table customers) rule 'dob_min_age_18' [accuracy/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: customers must be at least 18 years old\nField: customers.date_of_birth\nSample offending keys: [[6]]\nExplore/fix interactively: python run.py resolve --issue 16",
+  "body": "Data contract 'customers' (table customers) rule 'dob_min_age_18' [accuracy/HIGH] is failing: 1 row(s) affected, seen 1x since 2026-11-20 10:01:16.\nCheck: customers must be at least 18 years old\nField: customers.date_of_birth\nSample offending keys: [[6]]\nExplore/fix interactively: python run.py resolve --issue 16",
   "issue": {
     "issue_id": 16,
     "contract_id": "customers",

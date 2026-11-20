@@ -1,12 +1,12 @@
 {
   "channel": "file (simulated email)",
-  "sent_at": "2026-11-15 11:50:39",
+  "sent_at": "2026-11-20 10:01:16",
   "to": {
     "owner": "accounts.owner@dq-bank.example",
     "steward": "accounts.steward@dq-bank.example"
   },
   "subject": "[DQ][HIGH] accounts: rule 'iban_unique' failing (2 rows)",
-  "body": "Data contract 'accounts' (table accounts) rule 'iban_unique' [uniqueness/HIGH] is failing: 2 row(s) affected, seen 1x since 2026-11-15 11:50:39.\nCheck: IBAN must be unique across accounts\nField: accounts.iban\nSample offending keys: [[1], [15]]\nExplore/fix interactively: python run.py resolve --issue 4",
+  "body": "Data contract 'accounts' (table accounts) rule 'iban_unique' [uniqueness/HIGH] is failing: 2 row(s) affected, seen 1x since 2026-11-20 10:01:15.\nCheck: IBAN must be unique across accounts\nField: accounts.iban\nSample offending keys: [[1], [15]]\nExplore/fix interactively: python run.py resolve --issue 4",
   "issue": {
     "issue_id": 4,
     "contract_id": "accounts",

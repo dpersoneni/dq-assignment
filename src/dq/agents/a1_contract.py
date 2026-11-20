@@ -72,10 +72,18 @@ CONTRACT SHAPE (ODCS v3.0.0 — follow it exactly):
   or LOW), unit "rows", description (a string).
   - library: rule "nullCount" with mustBe 0 for NOT NULL fields;
     rule "duplicateCount" with mustBe 0 for unique fields.
-  - sql: "query" returns the offending primary keys; use ${table} for the table
-    name, ${asOf} for the as-of date, ${asOfMonth} for its YYYY-MM. Typical queries:
-    enum (col NOT IN (...)), format (NOT LIKE / NOT GLOB), range (col < 0),
-    referential integrity (LEFT JOIN other_table ... IS NULL), cross-table match.
+  - sql: REQUIRED property "query" — a SELECT returning the offending primary keys;
+    use ${table} for the table name, ${asOf} for the as-of date, ${asOfMonth} for its
+    YYYY-MM. Typical queries: enum (col NOT IN (...)), format (NOT LIKE / NOT GLOB),
+    range (col < 0), referential integrity (LEFT JOIN other_table ... IS NULL),
+    cross-table match. FULL EXAMPLE of a valid sql rule:
+      - name: status_enum
+        type: sql
+        dimension: conformity
+        severity: HIGH
+        unit: rows
+        description: status must be one of the allowed values
+        query: SELECT customer_id FROM ${table} WHERE status NOT IN ('active','closed','frozen')
 
 GUARDRAILS:
 - Only describe checks for the given table; never invent tables or columns.

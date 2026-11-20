@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15 11:55:49",
+  "generated_at": "2026-11-20 10:01:16",
   "catalogue": "simulated data product marketplace (JSON, per brief)",
   "products": [
     {
@@ -11,7 +11,7 @@
       "open_issues": 6,
       "owner": "accounts.owner@dq-bank.example",
       "steward": "accounts.steward@dq-bank.example",
-      "last_run_id": 6
+      "last_run_id": 1
     },
     {
       "contract_id": "cards",
@@ -22,7 +22,7 @@
       "open_issues": 4,
       "owner": "cards.owner@dq-bank.example",
       "steward": "cards.steward@dq-bank.example",
-      "last_run_id": 7
+      "last_run_id": 2
     },
     {
       "contract_id": "customers",
@@ -33,7 +33,7 @@
       "open_issues": 7,
       "owner": "data.owner@dq-bank.example",
       "steward": "data.steward@dq-bank.example",
-      "last_run_id": 8
+      "last_run_id": 3
     },
     {
       "contract_id": "loans",
@@ -44,7 +44,7 @@
       "open_issues": 4,
       "owner": "lending.owner@dq-bank.example",
       "steward": "lending.steward@dq-bank.example",
-      "last_run_id": 9
+      "last_run_id": 4
     },
     {
       "contract_id": "transactions",
@@ -55,7 +55,7 @@
       "open_issues": 7,
       "owner": "payments.owner@dq-bank.example",
       "steward": "payments.steward@dq-bank.example",
-      "last_run_id": 10
+      "last_run_id": 5
     }
   ]
 }
