@@ -26,7 +26,8 @@ python run.py seed                               # build data/banking.db + data/
 python run.py init                               # create dq.db (blackboard schema)
 python run.py sync                               # validate contracts/*.yaml (ODCS v3.0.0) → register as drafts
 python run.py approve --contract customers       # HITL gate (add --auto-approve for demos) — repeat for all 5
-python run.py tick                               # run A2→A3→A4 for every contract whose schedule is due
+python run.py demo --auto-approve                # full pipeline NOW for all active contracts (A2→A3→A4)
+                                                 # (`tick` only runs contracts whose schedule is due — see DEMO.md to force-due)
 python run.py report                             # detection report vs the defect manifest
 ```
 
