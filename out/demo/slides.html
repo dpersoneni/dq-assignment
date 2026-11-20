@@ -1,0 +1,61 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Contract-Driven DQ Monitor — demo slides</title>
+<style>
+body{font-family:system-ui,sans-serif;margin:0;background:#0f172a;color:#e2e8f0}
+section{display:none;padding:4rem 5rem}
+section.on{display:block}
+h1{font-size:2.6rem} h2{font-size:1.8rem;color:#7dd3fc} code{background:#1e293b;padding:2px 6px;border-radius:4px;color:#a5f3fc}
+.k{font-size:3rem;color:#fbbf24;font-weight:700}
+li{margin:.4rem 0;font-size:1.15rem}
+</style></head><body>
+<section class="on"><h1>Contract-Driven Data Quality Monitor</h1>
+<p>Turning ODCS data contracts into trusted, visible, actionable data quality — with a team of AI agents.</p>
+<p><code>python run.py demo --auto-approve</code> runs the whole flow.</p></section>
+
+<section><h2>The problem</h2><ul>
+<li>Data contracts (schema, meaning, owner, SLA, quality rules) mostly live on paper</li>
+<li>Owners learn about defects only when a consumer complains</li>
+<li>Marketplace consumers can't see whether a data product is trustworthy <em>right now</em></li>
+</ul></section>
+
+<section><h2>Architecture — deterministic orchestrator, 5 agents, LLM only where fuzzy</h2><ul>
+<li><b>Orchestrator</b>: plain Python pipeline + per-contract schedules (no LLM — reproducible, cheap, guardrails in code)</li>
+<li><b>A1 Contract Architect</b> (LLM): drafts ODCS v3.0.0 contract → schema-validated → <b>human approves</b> → active</li>
+<li><b>A2 Quality Executor</b> (no LLM): contract rules → read-only SQL, runs + history, deduped issues</li>
+<li><b>A3 Metrics</b> / <b>A4 Notify & Marketplace</b> (no LLM): dashboard, owner/steward mails from the contract, marketplace score</li>
+<li><b>A5 Issue Resolver</b> (LLM): root-cause suggestion → <b>human accepts/rejects</b> → write-back only by orchestrator, one transaction, then re-verify</li>
+</ul></section>
+
+<section><h2>Capability A — contracts (ODCS v3.0.0, human-approved)</h2><ul>
+<li>5 contracts in <code>contracts/*.yaml</code>, validated against the official ODCS v3.0.0 JSON schema</li>
+<li>28 quality rules; owner + steward + SLA schedule in every contract</li>
+<li>editing an approved contract → back to draft (re-approval); live: <code>run.py draft --table customers</code></li>
+</ul></section>
+
+<section><h2>Capabilities B–D — checks, dashboard, notify + marketplace</h2><ul>
+<li><code>run.py tick</code>: every due contract runs its rules (read-only source), results stored with history</li>
+<li><code>out/dashboard.html</code>: per contract/table/rule/dimension/severity + trend over last runs + score</li>
+<li><code>out/notifications/*.json</code>: actionable issue to owner+steward <em>from the contract</em>; <code>out/marketplace.json</code>: score/status per product</li>
+</ul></section>
+
+<section><h2>Detection report (vs our own seeded defect manifest)</h2>
+<p class="k">100% — 28/28 found, 0 missed, 0 false positives</p>
+<ul><li>28 deliberately seeded defects / 36 rows across 7 dimensions (<code>data/defect_manifest.csv</code>)</li>
+<li><code>out/detection_report.xlsx</code> (Excel tab) + <code>run.py report</code></li></ul></section>
+
+<section><h2>Capability E — resolve with human in the loop</h2><ul>
+<li><code>run.py resolve --issue N</code>: A5 proposes root cause + fix (read-only tools, structured JSON)</li>
+<li>HITL gate: accept / reject / close — recorded in the DB</li>
+<li>accepted write-back: orchestrator executes one transaction, contract re-runs, rule confirmed PASS</li>
+</ul></section>
+
+<section><h2>Measured results & disclosure</h2><ul>
+<li>pipeline: 1.04 s for 5 contracts / 28 rules; steady-state scheduled run = $0 LLM; one A1 draft ≈ $0.0016 (8,029 tokens)</li>
+<li>KPIs: 100% detection, 5/5 contracts active; scale analysis for 500 contracts / 50 sources in the DDR</li>
+<li>code written with Mistral Vibe; runtime LLM = Mistral API (mistral-small-latest) in A1/A5 only — full disclosure in README/DDR</li>
+</ul></section>
+
+<script>
+let i=0; const s=document.querySelectorAll('section');
+addEventListener('keydown',e=>{ if(e.key==='ArrowRight'||e.key===' ') i=Math.min(i+1,s.length-1); if(e.key==='ArrowLeft') i=Math.max(i-1,0); s.forEach((x,k)=>x.classList.toggle('on',k===i)); });
+</script></body></html>

@@ -98,6 +98,11 @@
 - To resume: open this folder, `git log --oneline`, read this file + README.md.
   ALL phases 0-12 are DONE. Quick re-verify anytime: `python run.py compile` (expect 36 vs 36)
   and `python run.py report` (expect 100.0% 28/28, 0 missed, 0 false positives).
-- Submission checklist: repo (git) = code+contracts+manifest+README+DDR; paste
-  out/detection_report.csv into an Excel tab; demo = out/demo/demo_transcript.txt or a
-  screen recording of `python run.py demo --auto-approve`.
+- Submission checklist: repo (git) = code+contracts+manifest+README+DDR; detection report
+  = out/detection_report.xlsx (Excel tab, 28 rows + Summary) and .csv; demo =
+  out/demo/slides.html + out/demo/demo_transcript.txt or a screen recording of
+  `python run.py demo --auto-approve`. Zip alternative: /c/Users/dani/Desktop/delen-dq-assignment.zip
+  (no .git/.env/generated DBs inside).
+- Phase 13 (final polish, done 2026-11-15): generated out/detection_report.xlsx via openpyxl
+  (tab "Detection Report" + "Summary"), wrote out/demo/slides.html (8-slide deck, arrow keys),
+  created the submission zip.
